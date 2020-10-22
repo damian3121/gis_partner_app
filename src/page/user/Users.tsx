@@ -3,6 +3,7 @@ import { SplitPane } from '../../component/SplitPane';
 import { useLoading } from '../../hooks/useLoading';
 import { UserDetails, userService } from '../../service/userService';
 import { SelectUser } from '../SelectUser';
+import { UserDetailsView } from './UserDetailsView';
 
 export interface LocalUserMutations {
   [key: number]: UserDetails;
@@ -46,7 +47,7 @@ export function Users() {
     const updated = new Map(localMutations);
     updated.set(next.id, next);
     setLocalMutations(updated);
-    setSelectedUser(next)
+    setSelectedUser(null)
   }
 
   function onDelete(
@@ -66,7 +67,10 @@ export function Users() {
         />
       }
       right={
-        <div>right panel</div>
+        <UserDetailsView
+          selectedUser={selectedUser}
+          onUserAdded={addNewLocalUserModification}
+        />
       }
     />
   )

@@ -1,26 +1,33 @@
 import axios from 'axios';
 
-export interface UserDetails {
-    id: number,
+export interface User {
     name: string,
-    surname: string
+    surname: string,
+    email: string
+}
+
+export interface UserDetails extends User {
+    id: number
 }
 
 const db: Array<UserDetails> = [
     {
         id: 1,
         name: "Damian",
-        surname: "Mścisz"
+        surname: "Mścisz",
+        email: "d.m@gmail.com"
     },
     {
         id: 2,
         name: "Jan",
-        surname: "Kowalski"
+        surname: "Kowalski",
+        email: "d.m@gmail.com"
     },
     {
         id: 3,
         name: "Michał",
-        surname: "Kichał"
+        surname: "Kichał",
+        email: "d.m@gmail.com"
     }
 ]
 
@@ -31,10 +38,23 @@ export const userService = {
         return db
     },
 
-    async create(user: UserDetails): Promise<UserDetails> {
+    async create(user: User): Promise<UserDetails> {
         // const response = await axios.post("", user)
-        db.push(user)
+        const localCurrentMaxId = Math.max.apply(Math, db.map(function (o) { return o.id; }))
+        db.push({
+            id: localCurrentMaxId + 1,
+            name: user.name,
+            surname: user.surname,
+            email: user.email
+        })
 
-        return user
+        return {
+            id: localCurrentMaxId + 1,
+            name: user.name,
+            surname: user.surname,
+            email: user.email
+        }
     }
+
+
 }
