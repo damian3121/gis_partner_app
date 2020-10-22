@@ -17,8 +17,7 @@ import { radioValueBinding, radioChangeBinding } from '../utils/bindings';
 import { TableHeader } from '../component/table/TableHeader';
 import AddIcon from '@material-ui/icons/Add';
 import TablePaginationActions from '@material-ui/core/TablePagination/TablePaginationActions';
-import { UserDetails, userService } from '../service/userService';
-import { Notyfication, AlertType } from '../component/notification/Notification';
+import { UserDetails } from '../service/userService';
 
 interface Props {
   setSelectedUser: Setter<Props['selectedUser']>;
@@ -38,8 +37,6 @@ export function SelectUser({
   setSelectedUser: setSelectedUser,
   selectedUser: selectedUser
 }: Props) {
-  const cls = useStyle();
-
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -54,18 +51,6 @@ export function SelectUser({
     setPage(0);
   }
 
-  function createUserHandler(user: UserDetails) {
-    userService.create({
-      id: user.id,
-      name: user.name,
-      surname: user.surname
-    })
-    Notyfication({
-      type: AlertType.SUCCES,
-      content: "Użytkownik został dodany"
-    })
-  }
-
   return (
     <Paper>
       <TableHeader
@@ -73,6 +58,12 @@ export function SelectUser({
           <Button
             color='primary'
             variant='contained'
+            onClick={() => setSelectedUser({
+              id: 0,
+              email: '',
+              name: '',
+              surname: ''
+            })}
           >
             <AddIcon />
           nowy
