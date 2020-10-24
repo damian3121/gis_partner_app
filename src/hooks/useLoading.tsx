@@ -2,11 +2,10 @@ import { DependencyList } from 'react';
 import { useState, useEffect } from 'react';
 
 type LoadedData<T> = [T | null, boolean, (next: T) => void];
-type LoadedArrayData<T> = [T[], boolean];
 
 const NO_DEPS: DependencyList = [];
 
-export function useLoading<T>(dataLoader: () => Promise<T>): LoadedData<T> {
+export function useLoading<T>(dataLoader: () => Promise<T>, dependnecy?: any): LoadedData<T> {
   const [data, setData] = useState(null as T | null);
   const [isLoadnig, setIsLoading] = useState(true);
 
@@ -29,7 +28,7 @@ export function useLoading<T>(dataLoader: () => Promise<T>): LoadedData<T> {
       canceled = true;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, NO_DEPS);
+  }, [dependnecy]);
 
   return [data, isLoadnig, setData];
 }

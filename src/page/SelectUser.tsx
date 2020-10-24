@@ -8,7 +8,6 @@ import {
   TableBody,
   Radio,
   Button,
-  makeStyles,
   TableFooter,
   TablePagination
 } from '@material-ui/core';
@@ -18,6 +17,7 @@ import { TableHeader } from '../component/table/TableHeader';
 import AddIcon from '@material-ui/icons/Add';
 import TablePaginationActions from '@material-ui/core/TablePagination/TablePaginationActions';
 import { UserDetails } from '../service/userService';
+import { translation } from '../translation'
 
 interface Props {
   setSelectedUser: Setter<Props['selectedUser']>;
@@ -25,12 +25,6 @@ interface Props {
   onDelete(user: UserDetails): void;
   users: Array<UserDetails>;
 }
-
-const useStyle = makeStyles(() => ({
-  buttonCenter: {
-    textAlign: 'center',
-  }
-}));
 
 export function SelectUser({
   users: users,
@@ -58,26 +52,21 @@ export function SelectUser({
           <Button
             color='primary'
             variant='contained'
-            onClick={() => setSelectedUser({
-              id: 0,
-              email: '',
-              name: '',
-              surname: ''
-            })}
+            onClick={() => setSelectedUser(null)}
           >
             <AddIcon />
-          nowy
+          {translation.newOne}
         </Button>
         }
       >
-        Użytkownicy
+        {translation.users}
       </TableHeader>
       <Table>
         <TableHead>
           <TableRow>
             <TableCell padding='checkbox'></TableCell>
-            <TableCell>Imię</TableCell>
-            <TableCell>Nazwisko</TableCell>
+            <TableCell>{translation.name}</TableCell>
+            <TableCell>{translation.surname}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
