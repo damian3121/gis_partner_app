@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { addressService } from './addressService';
 
 export interface User {
   name: string,
@@ -15,6 +16,7 @@ export interface User {
 
 export interface UserDetails extends User {
   id: number
+  coordinates: string
 }
 
 const db: Array<UserDetails> = [
@@ -29,7 +31,8 @@ const db: Array<UserDetails> = [
     city: "Jeżowe",
     street: "Akacjowa",
     buildingNumber: "123",
-    postalCode: "37-430"
+    postalCode: "37-430",
+    coordinates: ""
   },
   {
     id: 2,
@@ -42,7 +45,8 @@ const db: Array<UserDetails> = [
     city: "Jeżowe",
     street: "Akacjowa",
     buildingNumber: "123",
-    postalCode: "37-430"
+    postalCode: "37-430",
+    coordinates: ""
   },
   {
     id: 3,
@@ -55,20 +59,31 @@ const db: Array<UserDetails> = [
     city: "Jeżowe",
     street: "Akacjowa",
     buildingNumber: "123",
-    postalCode: "37-430"
+    postalCode: "37-430",
+    coordinates: ""
   }
 ]
 
 export const userService = {
   async getAll(): Promise<Array<UserDetails>> {
     // const response = await axios.get<UserDetails[]>("")
-
     return db
   },
 
   async create(user: User): Promise<UserDetails> {
     // const response = await axios.post("", user)
     const localCurrentMaxId = Math.max.apply(Math, db.map(function (o) { return o.id; }))
+
+    const pktCoordinates = await addressService.getCoordinatesByPkt({
+      reqs: [{
+        miejsc_nazwa: user.city,
+        pkt_kodPocztowy: user.postalCode,
+        pkt_numer: user.buildingNumber,
+        ul_pelna: user.street
+      }],
+      useExtServiceIfNotFound: true
+    })
+    const coordinates = pktCoordinates[0].others[0].center
 
     db.push({
       id: localCurrentMaxId + 1,
@@ -81,7 +96,8 @@ export const userService = {
       city: user.city,
       street: user.street,
       buildingNumber: user.buildingNumber,
-      postalCode: user.postalCode
+      postalCode: user.postalCode,
+      coordinates
     })
 
     return {
@@ -95,7 +111,8 @@ export const userService = {
       city: user.city,
       street: user.street,
       buildingNumber: user.buildingNumber,
-      postalCode: user.postalCode
+      postalCode: user.postalCode,
+      coordinates
     }
   }
 }

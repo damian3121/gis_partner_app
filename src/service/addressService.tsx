@@ -9,6 +9,24 @@ export interface AddressFilter {
   v: string
 }
 
+export interface AddressPktSearch {
+  reqs: [
+    {
+      "pkt_numer": string,
+      "pkt_kodPocztowy": string,
+      "ul_pelna": string,
+      "miejsc_nazwa": string
+    }
+  ],
+  useExtServiceIfNotFound: true
+}
+
+export interface PktCoordinates {
+  others: [{
+    center: string;
+  }]
+}
+
 export const addressService = {
   async getAllVoivodeships(): Promise<Array<AddressValue>> {
     const response = await axios.post<Array<AddressValue>>("https://capap.gugik.gov.pl/api/fts/hier/fdict/pkt/woj?cnt=999", [])
@@ -42,6 +60,11 @@ export const addressService = {
 
   async getAllPostalCodesByStreet(filter: Array<AddressFilter>): Promise<Array<AddressValue>> {
     const response = await axios.post<Array<AddressValue>>("https://capap.gugik.gov.pl/api/fts/hier/fdict/pkt/kod?cnt=999", filter)
+    return response.data
+  },
+
+  async getCoordinatesByPkt(pkt: AddressPktSearch): Promise<Array<PktCoordinates>> {
+    const response = await axios.post<Array<PktCoordinates>>("https://capap.gugik.gov.pl/api/fts/gc/pkt?cnt=999", pkt)
     return response.data
   }
 }
