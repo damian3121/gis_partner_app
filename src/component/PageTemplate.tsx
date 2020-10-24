@@ -17,6 +17,7 @@ import { makeStyles, useTheme } from '@material-ui/core';
 import { Fragment, useState } from 'react';
 import React from 'react';
 import classNames from 'classnames';
+import { translation } from '../translation';
 
 interface Props {
   pageContent(): any;
@@ -105,7 +106,6 @@ export function PageTemplate(props: Props) {
         <Toolbar>
           <IconButton
             color="inherit"
-            aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
             className={classNames(classes.menuButton, open && classes.hide)}
@@ -113,7 +113,7 @@ export function PageTemplate(props: Props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            GISPartner - zadania rekrutacyjne
+            {translation.mainHeaderName}
           </Typography>
         </Toolbar>
       </AppBar>

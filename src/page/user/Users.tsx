@@ -13,7 +13,7 @@ export function Users() {
   const fetchedUsers = useLoading(
     () => userService.getAll()
   )[0] || [];
-  console.log(fetchedUsers)
+  
   const [selectedUser, setSelectedUser] = useState<UserDetails | null>(null);
   const [localMutations, setLocalMutations] = useState(() => new Map<number, UserDetails>());
   const [toRemove, setToRemove] = useState<UserDetails | null>(null)
