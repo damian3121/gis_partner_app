@@ -32,7 +32,7 @@ const db: Array<UserDetails> = [
     street: "Akacjowa",
     buildingNumber: "123",
     postalCode: "37-430",
-    coordinates: ""
+    coordinates: "50, 20"
   },
   {
     id: 2,
@@ -46,7 +46,7 @@ const db: Array<UserDetails> = [
     street: "Akacjowa",
     buildingNumber: "123",
     postalCode: "37-430",
-    coordinates: ""
+    coordinates: "40, 10"
   },
   {
     id: 3,
@@ -60,7 +60,7 @@ const db: Array<UserDetails> = [
     street: "Akacjowa",
     buildingNumber: "123",
     postalCode: "37-430",
-    coordinates: ""
+    coordinates: "10, 10"
   }
 ]
 
@@ -83,7 +83,6 @@ export const userService = {
       }],
       useExtServiceIfNotFound: true
     })
-    const coordinates = pktCoordinates[0].others[0].center
 
     db.push({
       id: localCurrentMaxId + 1,
@@ -97,7 +96,7 @@ export const userService = {
       street: user.street,
       buildingNumber: user.buildingNumber,
       postalCode: user.postalCode,
-      coordinates
+      coordinates: pktCoordinates
     })
 
     return {
@@ -112,7 +111,7 @@ export const userService = {
       street: user.street,
       buildingNumber: user.buildingNumber,
       postalCode: user.postalCode,
-      coordinates
+      coordinates: pktCoordinates
     }
   }
 }

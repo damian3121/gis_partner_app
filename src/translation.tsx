@@ -13,7 +13,7 @@ export const translation = {
   email: 'E-mail',
   voivodeship: 'Województwo',
   county: 'Powiat',
-  commune: 'Gmnina',
+  commune: 'Gmina',
   city: 'Miejscowość',
   street: 'Ulica',
   postalCode: 'Kod pocztowy',
