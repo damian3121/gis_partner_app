@@ -12,6 +12,7 @@ import { useLoading } from '../../hooks/useLoading';
 import { UserDetails, userService } from '../../service/userService';
 import { AddressFilter, addressService, AddressValue } from '../../service/addressService';
 import { FormContextHandler } from '../../form/FormContextHandler';
+import { Map } from '../../map/Map'
 import { translation } from '../../translation'
 
 const useStyle = makeStyles((theme: Theme) => ({
@@ -145,6 +146,15 @@ function errorHandler(
   return errors;
 }
 
+function mapPopupContent(selectedUser: UserDetails): string {
+  return (selectedUser.name +
+    " " + selectedUser.surname
+    + " (" + selectedUser.city
+    + ", " + selectedUser.street
+    + " " + selectedUser.buildingNumber
+    + ")")
+}
+
 export function UserDetailsView({
   selectedUser: selectedUser,
   onUserAdded: onUserAdded
@@ -153,6 +163,11 @@ export function UserDetailsView({
 
   const [currentFormState, setCurrentFormState] = useState<Values>()
   const [filters, setFilters] = useState<Array<AddressFilter>>([])
+  const popupContent = selectedUser ? mapPopupContent(selectedUser) : ''
+
+  const coordinates = selectedUser && selectedUser.coordinates.split(',')
+  const coordinateX = coordinates ? Number(coordinates[0]) : 0
+  const coordinateY = coordinates ? Number(coordinates[1]) : 0
 
   const voivodeships = useLoading(
     () => addressService.getAllVoivodeships()
@@ -477,6 +492,13 @@ export function UserDetailsView({
                   {translation.add}
                 </Button>
               </Grid>
+              <Map
+                coordinateX={coordinateX}
+                coordinateY={coordinateY}
+                maxZoom={20}
+                zoom={13}
+                popupContent={popupContent}
+              />
               <FormContextHandler
                 props={setCurrentFormState}
               />
