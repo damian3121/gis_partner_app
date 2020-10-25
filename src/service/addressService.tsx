@@ -68,7 +68,6 @@ export const addressService = {
 
   async getCoordinatesByPkt(pkt: AddressPktSearch): Promise<string> {
     const response = await axios.post<Array<PktCoordinates>>("https://capap.gugik.gov.pl/api/fts/gc/pkt?cnt=999", pkt)
-    console.log(response.data)
 
     if (response.data[0].single) {
       return response.data[0].single.center

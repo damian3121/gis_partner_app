@@ -1,19 +1,25 @@
 import React from 'react'
 import { Map as LeafletMap, TileLayer, Marker, Popup } from 'react-leaflet';
 
-interface Props {
+export interface MapMarkerValues extends Coordinates {
+  popupMarkerContent: string;
+}
+
+interface Coordinates {
   coordinateX: number;
   coordinateY: number;
+}
+
+interface Props {
+  coordinates: Array<MapMarkerValues>
   zoom: number;
   maxZoom: number;
-  popupContent: string;
 }
 
 export function Map(props: Props) {
-
   return (
     <LeafletMap
-      center={[props.coordinateX, props.coordinateY]}
+      center={[props.coordinates[0].coordinateX, props.coordinates[0].coordinateY]}
       zoom={props.zoom}
       maxZoom={props.maxZoom}
       attributionControl={true}
@@ -27,11 +33,15 @@ export function Map(props: Props) {
       <TileLayer
         url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
       />
-      <Marker position={[props.coordinateX, props.coordinateY]}>
-        <Popup>
-          {props.popupContent}
-        </Popup>
-      </Marker>
+      {
+        props.coordinates.map(it =>
+          <Marker position={[it.coordinateX, it.coordinateY]}>
+            <Popup>
+              {it.popupMarkerContent}
+            </Popup>
+          </Marker>
+        )
+      }
     </LeafletMap>
   )
 }
