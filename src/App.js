@@ -9,7 +9,7 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/users" component={() => <PageTemplate pageContent={Users()}></PageTemplate>} />
+        <Route exact path="/" component={() => <PageTemplate pageContent={Users()}></PageTemplate>} />
         <Route exact path="/users-map" component={() => <PageTemplate pageContent={UsersMap()}></PageTemplate>} />
       </Switch>
     </Router>

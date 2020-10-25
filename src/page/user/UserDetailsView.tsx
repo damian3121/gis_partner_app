@@ -83,6 +83,7 @@ function errorHandler(
   const streetExistsInCommune = values.street && streets.find(it => it.value == values.street.value)
   const buildingNumbersExistsAtStreet = values.buildingNumber && buildingumbers.find(it => it.value == values.buildingNumber.value)
   const postalCodesExistsAtStreet = values.postalCode && postalCodes.find(it => it.value == values.postalCode.value)
+  const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   if (!communeExistsInCounty) {
     errors.commune = translation.communeNotExistsInCounty
@@ -118,6 +119,10 @@ function errorHandler(
 
   if (!values.email) {
     errors.email = translation.emptyValue
+  }
+
+  if (!emailRegex.test(String(values.email).toLowerCase())) {
+    errors.email = translation.notValidEmail
   }
 
   if (!values.voivodeship || !values.voivodeship.value) {

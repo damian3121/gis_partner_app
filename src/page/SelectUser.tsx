@@ -67,6 +67,7 @@ export function SelectUser({
             <TableCell padding='checkbox'></TableCell>
             <TableCell>{translation.name}</TableCell>
             <TableCell>{translation.surname}</TableCell>
+            <TableCell>{translation.city}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -85,6 +86,7 @@ export function SelectUser({
               </TableCell>
               <TableCell>{user.name}</TableCell>
               <TableCell>{user.surname}</TableCell>
+              <TableCell>{user.city}</TableCell>
             </TableRow>
           )}
         </TableBody>

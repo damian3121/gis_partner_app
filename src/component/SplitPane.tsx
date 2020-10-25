@@ -33,12 +33,12 @@ export function SplitPane({
   return (
     <div className={cls.root}>
       <Grid container spacing={3}>
-        <Grid item xs={6}>
+        <Grid item sm={12} md={6}>
           <Paper>
             {left}
           </Paper>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item sm={12} md={6}>
           <Paper className={cls.sectionRight}>
             {right}
           </Paper>

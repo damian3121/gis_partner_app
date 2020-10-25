@@ -1,5 +1,6 @@
 export const translation = {
   emptyValue: 'Pole nie może być puste',
+  notValidEmail: 'Adres email, nie spełnia podstawowych wymogów. Sprawdź jego poprawność',
   countyNotExistsInVoivodeship: 'Powiat nie z tego województwa. Wybierz ponownie',
   communeNotExistsInCounty: 'Gmina nie z tego powiatu. Wybierz ponownie',
   cityNotExistsInCommune: 'Miejscowość nie z tej gminy. Wybierz ponownie',

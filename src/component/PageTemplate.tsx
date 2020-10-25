@@ -136,7 +136,11 @@ export function PageTemplate(props: Props) {
         </List>
         <ListItem button>
           <ListItemIcon><AccountBox /></ListItemIcon>
-          <ListItemText primary={"Pulpit"} />
+          <ListItemText primary={"Użytkownicy"} onClick={() => window.location.replace("/")} />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon><AccountBox /></ListItemIcon>
+          <ListItemText primary={"Mapa"} onClick={() => window.location.replace("/users-map")} />
         </ListItem>
         <Divider />
         <List>
