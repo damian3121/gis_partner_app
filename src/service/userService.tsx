@@ -46,7 +46,7 @@ const db: Array<UserDetails> = [
     street: "Akacjowa",
     buildingNumber: "123",
     postalCode: "37-430",
-    coordinates: "40, 10"
+    coordinates: "51, 21"
   },
   {
     id: 3,
@@ -60,7 +60,7 @@ const db: Array<UserDetails> = [
     street: "Akacjowa",
     buildingNumber: "123",
     postalCode: "37-430",
-    coordinates: "10, 10"
+    coordinates: "49, 19"
   }
 ]
 

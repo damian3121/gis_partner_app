@@ -14,6 +14,7 @@ import { AddressFilter, addressService, AddressValue } from '../../service/addre
 import { FormContextHandler } from '../../form/FormContextHandler';
 import { Map } from '../../map/Map'
 import { translation } from '../../translation'
+import { usersToMapMarkerValue } from '../usersmap/UsersMap';
 
 const useStyle = makeStyles((theme: Theme) => ({
   fieldMargin: {
@@ -146,7 +147,7 @@ function errorHandler(
   return errors;
 }
 
-function mapPopupContent(selectedUser: UserDetails): string {
+export function mapPopupContent(selectedUser: UserDetails): string {
   return (selectedUser.name +
     " " + selectedUser.surname
     + " (" + selectedUser.city
@@ -163,11 +164,7 @@ export function UserDetailsView({
 
   const [currentFormState, setCurrentFormState] = useState<Values>()
   const [filters, setFilters] = useState<Array<AddressFilter>>([])
-  const popupContent = selectedUser ? mapPopupContent(selectedUser) : ''
-
-  const coordinates = selectedUser && selectedUser.coordinates.split(',')
-  const coordinateX = coordinates ? Number(coordinates[0]) : 0
-  const coordinateY = coordinates ? Number(coordinates[1]) : 0
+  const mapMarkerValue = selectedUser && usersToMapMarkerValue(Array.of(selectedUser))
 
   const voivodeships = useLoading(
     () => addressService.getAllVoivodeships()
@@ -493,11 +490,13 @@ export function UserDetailsView({
                 </Button>
               </Grid>
               <Map
-                coordinateX={coordinateX}
-                coordinateY={coordinateY}
+                coordinates={mapMarkerValue ? mapMarkerValue : [{
+                  coordinateX: 0,
+                  coordinateY: 0,
+                  popupMarkerContent: ''
+                }]}
                 maxZoom={20}
-                zoom={13}
-                popupContent={popupContent}
+                zoom={6}
               />
               <FormContextHandler
                 props={setCurrentFormState}
